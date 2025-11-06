@@ -112,8 +112,8 @@ class TextAnalysis:
         # empty list to store them, to be updated in loop 
         kgrams = []
 
-        # Loop through the list of tokenized words, joining every pair 
-        for i in range(len(self.text)): 
+        # Loop through the list of tokenized words, joining every consecutive k words 
+        for i in range(len(self.text)-(k-1)): 
             kgram = " ".join(self.text[i:i+k])
             kgrams.append(kgram)
 

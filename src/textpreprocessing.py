@@ -22,7 +22,7 @@ def txt_preprocessing(txt_file = "PrideAndPrejudice.txt"):
     # Count number of tokens before removing stopwords
     tokens_bef = len(txt)
 
-    # Remove stopwords
+    # Remove stopwords from list of tokens
     from nltk.corpus import stopwords
     en_stopwords = stopwords.words("english")
     txt = [word for word in txt if word not in en_stopwords]
