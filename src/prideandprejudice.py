@@ -1,7 +1,9 @@
-import textpreprocessing, textanalysis
+# This file runs the text analysis on the raw text from the book Pride and Prejudice.
+
+from book_analysis import textpreprocessing, textanalysis
 
 # Run text preprocessing on Pride and Prejudice
-txt = textpreprocessing.txt_preprocessing()
+txt = textpreprocessing.txt_preprocessing(txt_file = "book_analysis/data/PrideAndPrejudice.txt")
 
 # Create an instance of TextAnalysis with the preprocessed text
 txt_analysis = textanalysis.TextAnalysis(txt)
