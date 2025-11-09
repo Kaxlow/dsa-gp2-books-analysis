@@ -1,73 +1,84 @@
 import re
-from pathlib import Path # Used to handle file paths
+from pathlib import Path
+
+def clean_title(t):
+    # Remove isolated numbers
+    t = re.sub(r'\b\d+\b', '', t)
+
+    # Remove Roman numerals
+    t = re.sub(r'\b[IVXLCM]+\b', '', t, flags=re.IGNORECASE)
+
+    # Remove the word CONTENTS
+    t = re.sub(r'\bCONTENTS\b', '', t, flags=re.IGNORECASE)
+
+    # Keep letters, numbers, parentheses, hyphens, and spaces
+    t = re.sub(r'[^A-Za-z0-9\-\(\) ]+', '', t)
+
+    # Normalize spacing
+    t = re.sub(r'\s+', ' ', t)
+
+    return t.strip()
+
 
 def populate_toc(tree):
-    # Regex to capture number, title, and optional page number at end of line
-    # Groups: (1: number), (2: title)
-    # This regex matches the number, then greedily matches the title (.*),
-    # then optionally matches a space and a page number at the end (\s+\d+)?$
-    toc_pattern = re.compile(r'^([\d\.]+)\s+(.*?)(\s+\d+)?$')
-
-    # Regex for a line that is ONLY a title (continuation) or page number
-    # This will match lines that DO NOT start with a number.
-    title_only_pattern = re.compile(r'^(?![\d\.]+\s)(.*?)(\s+\d+)?$')
+    toc_pattern = re.compile(r'^(\d+(?:\.\d+)*)\s+(.+?)(?:\s+\d+)?$')
 
     try:
         current_path = Path(__file__).parent
     except NameError:
         current_path = Path.cwd()
-        
-    input_path = current_path / "Textbook.txt"
 
+    input_path = current_path / "Textbook.txt"
     if not input_path.exists():
         print(f"Error: Textbook.txt not found at {input_path}")
-        print("Please make sure 'Textbook.txt' is in the same directory.")
         return tree
 
     parsing_toc = False
     pending_path = None
     pending_title = ""
-    
-    with input_path.open(mode="r", encoding="UTF-8") as file:
-        for line in file:
-            line = line.strip()
-            if not line: 
-                continue
 
-            if line.startswith("CONTENTS"):
-                parsing_toc = True
-                continue
-            
-            if line.startswith("CHAPTER") and "INTRODUCTION" in line:
-                parsing_toc = False
+    lines = [line.strip() for line in input_path.open("r", encoding="UTF-8") if line.strip()]
+
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+
+        if line.startswith("CONTENTS"):
+            parsing_toc = True
+            i += 1
+            continue
+
+        if parsing_toc and line.startswith("CHAPTER") and "INTRODUCTION" in line:
+            break
+
+        if not parsing_toc:
+            i += 1
+            continue
+
+        m = toc_pattern.match(line)
+
+        if m and line.lower().startswith("section"):
+            m = None
+
+        if m:
+            if pending_path:
+                tree.insert(pending_path, clean_title(pending_title))
+
+            num_str = m.group(1)
+            pending_path = num_str.split('.')
+
+            if int(pending_path[0]) > 10:
                 break
-            
-            if not parsing_toc:
-                continue
 
-            num_title_match = toc_pattern.match(line)
-            title_only_match = title_only_pattern.match(line)
+            pending_title = m.group(2).strip()
 
-            if num_title_match:
-                if pending_path:
-                    tree.insert(pending_path, pending_title.strip())
-                
-                num_str = num_title_match.group(1)
-                title = num_title_match.group(2).strip()
-                path = num_str.split('.')
-                
-                if int(path[0]) > 10:
-                    break
-                    
-                pending_path = path
-                pending_title = title
-            
-            elif pending_path and title_only_match:
-                title_continuation = title_only_match.group(1).strip()
-                if title_continuation:
-                    pending_title += f" {title_continuation}"
+            while i + 1 < len(lines) and re.match(r'^[a-z]', lines[i + 1]):
+                pending_title += " " + lines[i + 1]
+                i += 1
 
-        if pending_path:
-            tree.insert(pending_path, pending_title.strip())
-    
-    return tree 
+        i += 1
+
+    if pending_path:
+        tree.insert(pending_path, clean_title(pending_title))
+
+    return tree

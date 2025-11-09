@@ -1,6 +1,3 @@
-# q1_tree.py
-# Contains the core classes for building and operating on the tree.
-
 class Node:
     """
     Attributes:
@@ -11,24 +8,16 @@ class Node:
     """
     def __init__(self, title, num_str=None, parent=None):
         self.title = title
-        self.num_str = num_str  # The number string (e.g., "1.2.1")
+        self.num_str = num_str
         self.parent = parent
-        # Using a dict for children: {sub_num_str: Node}
-        # e.g., children['2'] = Node(...) for section 1.2
-        # This allows for efficient O(1) average-case child lookup.
         self.children = {}  
 
 class TocTree:
     def __init__(self, book_title):
         """
-        Initializes the tree with a root node representing the book itself.
+        Initializes the tree with a root node.
         """
-        # The root node represents the book
-        self.root = Node(book_title, num_str="0") # Give root a "0" path
-        
-        # This lookup dict is for the depth(node_title) method.
-        # It allows for O(1) average-case lookup of any node by its title.
-        # The key is a (num_str, title) tuple to handle duplicate titles.
+        self.root = Node(book_title, num_str="0")
         self.nodes_by_title = {(self.root.num_str, book_title): self.root}
 
     def insert(self, path, title):
@@ -88,7 +77,6 @@ class TocTree:
 
         number_str = node.num_str
         
-        # Calculate indentation based on depth
         depth = number_str.count('.')
         indent = "  " * depth
 
@@ -130,7 +118,6 @@ class TocTree:
         return max_child_height
 
     def depth(self, num_str, node_title):
-        # Use the (num_str, node_title) tuple as the unique key
         unique_key = (num_str, node_title)
         node = self.nodes_by_title.get(unique_key)
         
