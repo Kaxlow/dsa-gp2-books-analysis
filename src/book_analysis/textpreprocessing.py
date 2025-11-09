@@ -40,3 +40,30 @@ def txt_preprocessing(txt_file = "data/PrideAndPrejudice.txt"):
   print(f"Before removing stopwords, there were {tokens_bef} tokens.\nAfter removing the stopwords, there were {tokens_aft} tokens.")
 
   return txt
+
+
+
+  def sentencesplitter(txt_file): 
+
+    '''This functino splits the text into sentences, for the sentence structure metrics to be performed'''
+
+
+    # Read text from .txt file into a string
+  with open(txt_file, mode = "r", encoding = "UTF-8") as file:
+    txt = file.read()
+
+  # Convert all text to lowercase
+  txt = txt.lower()
+
+  # split by sentences 
+  sentences = re.split(r'[.!?]\s+', txt)
+
+  # Clean up the sentences, much like preprocessing 
+  cleaned_sentences = []
+    for sentence in sentences:
+        # Remove unwanted characters 
+        cleaned = re.sub(r"[^a-z\s\']", "", sentence)
+        # Remove extra spaces
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        
+        cleaned_sentences.append(cleaned)
