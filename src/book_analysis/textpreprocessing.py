@@ -45,7 +45,7 @@ def txt_preprocessing(txt_file = "data/PrideAndPrejudice.txt"):
 
   def sentencesplitter(txt_file): 
 
-    '''This functino splits the text into sentences, for the sentence structure metrics to be performed'''
+    '''This functinon splits the text into sentences, for the sentence structure metrics to be performed'''
 
 
     # Read text from .txt file into a string
