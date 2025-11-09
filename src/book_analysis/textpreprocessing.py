@@ -43,29 +43,26 @@ def txt_preprocessing(txt_file = "data/PrideAndPrejudice.txt"):
 
 
 
-def sentencesplitter(txt_file): 
+def sentencesplitter(txt_file):
+    '''This function splits the text into sentences for sentence structure metrics.'''
 
-  '''This functinon splits the text into sentences, for the sentence structure metrics to be performed'''
+    # Read text from .txt file into a string
+    with open(txt_file, mode="r", encoding="UTF-8") as file:
+        txt = file.read()
 
+    # Convert all text to lowercase
+    txt = txt.lower()
 
-  # Read text from .txt file into a string
-  with open(txt_file, mode = "r", encoding = "UTF-8") as file:
-  txt = file.read()
+    # Split by sentences 
+    sentences = re.split(r'[.!?]\s+', txt)
 
-  # Convert all text to lowercase
-  txt = txt.lower()
+    # Clean up the sentences, much like preprocessing 
+    cleaned_sentences = []
+    for sentence in sentences:
+        # Remove unwanted characters 
+        cleaned = re.sub(r"[^a-z\s\']", "", sentence)
+        # Remove extra spaces
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        cleaned_sentences.append(cleaned)
 
-  # split by sentences 
-  sentences = re.split(r'[.!?]\s+', txt)
-
-  # Clean up the sentences, much like preprocessing 
-  cleaned_sentences = []
-  for sentence in sentences:
-      # Remove unwanted characters 
-      cleaned = re.sub(r"[^a-z\s\']", "", sentence)
-      # Remove extra spaces
-      cleaned = re.sub(r'\s+', ' ', cleaned).strip()
-      
-      cleaned_sentences.append(cleaned)
-
-  return cleaned_sentences
+    return cleaned_sentences
