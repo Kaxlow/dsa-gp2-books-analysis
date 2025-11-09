@@ -49,17 +49,17 @@ def txt_preprocessing(txt_file = "data/PrideAndPrejudice.txt"):
 
 
     # Read text from .txt file into a string
-  with open(txt_file, mode = "r", encoding = "UTF-8") as file:
+    with open(txt_file, mode = "r", encoding = "UTF-8") as file:
     txt = file.read()
 
-  # Convert all text to lowercase
-  txt = txt.lower()
+    # Convert all text to lowercase
+    txt = txt.lower()
 
-  # split by sentences 
-  sentences = re.split(r'[.!?]\s+', txt)
+    # split by sentences 
+    sentences = re.split(r'[.!?]\s+', txt)
 
-  # Clean up the sentences, much like preprocessing 
-  cleaned_sentences = []
+    # Clean up the sentences, much like preprocessing 
+    cleaned_sentences = []
     for sentence in sentences:
         # Remove unwanted characters 
         cleaned = re.sub(r"[^a-z\s\']", "", sentence)
@@ -67,3 +67,5 @@ def txt_preprocessing(txt_file = "data/PrideAndPrejudice.txt"):
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
         
         cleaned_sentences.append(cleaned)
+
+    return cleaned_sentences
