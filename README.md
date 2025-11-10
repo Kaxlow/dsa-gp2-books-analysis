@@ -31,8 +31,8 @@ All required modules (`re`, `pathlib`) are part of the standard Python library, 
 ### How to Run
 
 1.  Open your terminal or command prompt.
-2.  Navigate to the directory where you have placed the four files:
-3.  Execute the `q1_test.py` driver script using `python3`:
+2.  Navigate to the directory where you have placed the four files.
+3.  Execute the `q1_test.py` driver script using `python3`.
 
 ### Expected Output
 
