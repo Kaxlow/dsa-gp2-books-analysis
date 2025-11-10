@@ -89,7 +89,7 @@ class TocTree:
             print(f"{indent}{number_str} {node.title}")
         else:
             if not hasattr(self, '_mode_error_printed'):
-                print(f"Error: Unknown print mode '{mode}'. Defaulting to 'indented_num'.")
+                print(f"Error: Unknown print mode '{mode}'")
                 self._mode_error_printed = True
             print(f"{indent}{number_str} {node.title}")
 
@@ -112,8 +112,7 @@ class TocTree:
     
         max_child_height = 0
         for child in node.children.values():
-            max_child_height = max(max_child_height, 
-                                   self._height_recursive(child))
+            max_child_height = max(max_child_height, self._height_recursive(child))
         
         return max_child_height
 
