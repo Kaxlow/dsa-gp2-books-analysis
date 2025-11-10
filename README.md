@@ -6,8 +6,8 @@ CU Boulder DTSC 5501-801 Group Project #2 - Data Structures in Action Table of C
 
 Written and maintained by Group 10:
 
-* **[Ken Low]:** - 
-* **[Griffin Keener]:** - 
+* **[Ken Low]:** - Q2 text preprocessing, time and space complexity analysis, interpretation of letter, word, bigrams, and trigram distributions.
+* **[Griffin Keener]:** - Q2 text analysis code that returns letter, word, bigram, and trigram frequencies, and sentence analysis code that shows sentence-structure metrics.
 * **[Swejal Gabhane]:** - Q1 Data Parsing, Main script for testing, Report writeup
 * **[Augustine Joy]:** - Q1 Tree data structure implementation, Packaging, README.md setup instructions.
 
