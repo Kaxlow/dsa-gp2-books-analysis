@@ -48,4 +48,6 @@ When you run the script, the output will appear in this order:
 
 The code is configured to analyze the book "Pride and Prejudice". To execute the code and view the results of the book analysis, run the `FinalReport.ipynb` file.
 
-The source code is located in `src/book_analysis`. A test script is also available at `test/txtanalysis_test.py`.
+The source code is located in `src/book_analysis`. It consists of the text preprocessing function in `textpreprocessing.py` and the text analysis class and methods in `textanalysis.py`.
+
+The test script is available at `test/txtanalysis_test.py`.
