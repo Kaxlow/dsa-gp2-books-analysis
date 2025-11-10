@@ -1,4 +1,48 @@
-# dsa-gp2-books-analysis
+# Book Analysis
+
+CU Boulder DTSC 5501-801 Group Project #2 - Data Structures in Action Table of Contents & Text Analysis
+
+# Roles & Responsibilities
+
+Written and maintained by Group 10:
+
+* **[Ken Low]:** - 
+* **[Griffin Keener]:** - 
+* **[Swejal Gabhane]:** - Q1 Data Parsing, Main script for testing, Report writeup
+* **[Augustine Joy]:** - Q1 Tree data structure implementation, Packaging, README.md setup instructions.
+
+# Setup and Execution
+
+## Q1 Build a Table of Contents
+
+This program parses the Table of Contents from `Textbook.txt`, builds a tree, and then prints the tree in multiple formats, along with its height and the depth of specific nodes.
+
+### Prerequisites
+
+All required modules (`re`, `pathlib`) are part of the standard Python library, so no `pip install` is necessary.
+
+### File Structure
+
+* `q1_tree.py`: Contains the `Node` and `TocTree` class definitions.
+* `q1_dataextract.py`: Contains the `create_toc` function to parse the textbook.
+* `q1_test.py`: The main script to test the program.
+* `Textbook.txt`: The data file to be parsed.
+
+### How to Run
+
+1.  Open your terminal or command prompt.
+2.  Navigate to the directory where you have placed the four files:
+3.  Execute the `q1_test.py` driver script using `python3`:
+
+### Expected Output
+
+When you run the script, the output will appear in this order:
+
+1.  The complete Table of Contents printed in **'plain'** mode.
+2.  The complete Table of Contents printed in **'indented'** mode.
+3.  The complete Table of Contents printed in **'indented_num'** mode.
+4.  A "Tree Height and Depth Demonstration" section, which prints the calculated height of the tree.
+5.  A "Node Depths" section, which shows the results of the `depth()` function calls for the specific nodes being tested.
 
 ## Q2 Letters and Words Analysis
 
