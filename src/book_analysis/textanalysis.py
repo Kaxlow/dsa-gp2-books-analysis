@@ -29,21 +29,19 @@ class TextAnalysis:
     
     '''
     
-    def __init__(self, filepath):
-        self.filepath = filepath 
-        
-        # Open the file and store as self.text
-        with open(filepath, 'r', encoding='utf-8') as f:
-            self.text = f.read()
-    
-
+    def __init__(self, text):
+        # text is a list of tokenized words
+        self.text = text
 
     def lettercounter(self, table = True, plot = True): 
+        
+        # Join all tokens into a string of letters only
+        all_letters_str = ''.join(self.text)
 
         # Count letters using collections.Counter
         counter = Counter()
 
-        for i in self.text: 
+        for i in all_letters_str: 
             if i in string.ascii_lowercase: 
                 counter[i] += 1
 
@@ -71,9 +69,8 @@ class TextAnalysis:
 
 
     def wordcounter(self, table=True, plot=True): 
-        # split into words, split() is a built in python function to split a string 
-        words = self.text.split(' ')
-        counter = Counter(words)
+
+        counter = Counter(self.text)
 
         top40 = counter.most_common(40)
 
@@ -86,7 +83,7 @@ class TextAnalysis:
         if plot: 
             plt.figure(figsize=(12, 4))
             plt.bar(df['Words'], df['Count'], width=0.9)
-            plt.title('Top 40 Words and thier Frequencies')
+            plt.title('Top 40 Words and their Frequencies')
             
             plt.xlabel('Word')
             plt.ylabel('Count')
@@ -112,15 +109,12 @@ class TextAnalysis:
             
         
         '''
-        # Split strings into words, default is to split by whitespace 
-        words = self.text.split()
-        
         # empty list to store them, to be updated in loop 
         kgrams = []
 
-        # Loop through the words, joining every pair 
-        for i in range(len(words)): 
-            kgram = " ".join(words[i:i+k])
+        # Loop through the list of tokenized words, joining every consecutive k words 
+        for i in range(len(self.text)-(k-1)): 
+            kgram = " ".join(self.text[i:i+k])
             kgrams.append(kgram)
 
         # Get top 20 k-grams 
